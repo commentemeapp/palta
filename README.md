@@ -1,4 +1,8 @@
-![palta — Formateo y validación de datos de América Latina: CPF, CNPJ, RUT, CUIT, NIT, RUC, monedas, teléfonos y códigos postales. 23 países, TypeScript, cero dependencias, ESM + CJS, Node >=16, MIT.](https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/zeluizr/palta/main/.github/assets/readme-header-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png">
+  <img alt="palta — Formateo y validación de datos de América Latina: CPF, CNPJ, RUT, CUIT, NIT, RUC, monedas, teléfonos y códigos postales. 23 países, TypeScript, cero dependencias, ESM + CJS, Node >=16, MIT." src="https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png" width="100%">
+</picture>
 
 # palta
 
@@ -86,6 +90,14 @@ import { length } from '@zeluizr/palta/measurements'
 ```
 
 ## Referencia
+
+Versión del código: **1.3.1**, según [package.json](package.json). El inventario de
+países está en [src/index.ts](src/index.ts); los contratos de los módulos están en
+[src/types.ts](src/types.ts) y los cambios de API en [CHANGELOG.md](CHANGELOG.md).
+
+La validación comprueba las reglas implementadas para cada documento (formato y, cuando
+corresponde, dígito verificador). No consulta registros fiscales ni verifica la identidad
+de una persona. La detección automática tampoco sustituye el país elegido por el usuario.
 
 Cada namespace de país exporta `currency`, `phone`, `zipcode` y uno o dos documentos. Los
 contratos están en `src/types.ts` y son idénticos en todos los países.
