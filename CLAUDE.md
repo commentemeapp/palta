@@ -15,7 +15,7 @@ Guide for AI assistants working on this codebase.
 ```bash
 npm test                # run all tests (vitest)
 npm run test:coverage   # run tests + coverage (per-metric thresholds)
-npm run build           # build with tsup (ESM + CJS + .d.ts)
+npm run build           # build with tsup (ESM + CJS + .d.ts + minified IIFE `dist/palta.global.js`)
 npm run lint            # tsc --noEmit (type checking only)
 ```
 
@@ -85,7 +85,7 @@ Both are in `src/utils.ts`.
 
 ## CI/CD
 
-- `.github/workflows/ci.yml` — runs lint + `test:coverage` + build on every push/PR, using Node 22
+- `.github/workflows/ci.yml` — runs lint + `test:coverage` + build + a smoke test of `dist/palta.global.js` on every push/PR, using Node 22
 - No automated publish — releases are published manually via `npm publish --access public`
 - Coverage thresholds in `vitest.config.ts`: lines 94, statements 94, functions 98, branches 90
 

@@ -82,6 +82,16 @@ detect('111.444.777-35')
 CURP, RIF, CI) y devuelve `null` cuando no reconoce el valor. No es exhaustiva entre los 23
 países.
 
+Sin bundler (HTML puro, temas de Shopify), el build `palta.global.js` expone `window.palta`.
+Fijá la versión en la URL para que una versión mayor no rompa la página:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@zeluizr/palta@1/dist/palta.global.js"></script>
+<script>
+  palta.br.cpf.validate('111.444.777-35')  // true
+</script>
+```
+
 Para reducir el bundle, cada país se puede importar por subpath:
 
 ```ts
@@ -156,7 +166,7 @@ de JavaScript. El subpath sigue siendo `@zeluizr/palta/do`.
 - ESM y CJS, con tipos incluidos
 - Sin dependencias en runtime
 
-El toolchain de desarrollo pide más: vitest exige Node `>= 18` y la CI corre en Node 22. Esa
+El toolchain de desarrollo pide más: vitest 4 exige Node `^20 || ^22 || >=24` y la CI corre en Node 22. Esa
 diferencia importa en VTEX IO — el paquete instala y corre en Node 16 igual, porque la salida
 compilada no usa ninguna API exclusiva de versiones nuevas.
 
@@ -191,7 +201,7 @@ npm install
 npm test              # vitest
 npm run test:coverage # cobertura, umbral 94%
 npm run lint          # tsc --noEmit, única puerta estática
-npm run build         # tsup: ESM + CJS + .d.ts
+npm run build         # tsup: ESM + CJS + .d.ts + IIFE (palta.global.js)
 ```
 
 Los tests importan directo de `src/`, así que corren sin haber hecho `build`. La CI

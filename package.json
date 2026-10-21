@@ -45,6 +45,8 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "unpkg": "./dist/palta.global.js",
+  "jsdelivr": "./dist/palta.global.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

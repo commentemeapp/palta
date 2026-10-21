@@ -17,6 +17,12 @@ y este proyecto sigue el [Versionado Semántico](https://semver.org/lang/es/).
 ### Añadido
 - `measurements.format` acepta `decimalSeparator: ',' | '.'` (por defecto `','`). Con `'.'` los
   miles se separan con `','`, como en México, Puerto Rico o República Dominicana.
+- Build IIFE minificado `dist/palta.global.js` (~12 KB gzip) que expone `window.palta`, para usar
+  con `<script>` sin bundler. Los campos `unpkg` y `jsdelivr` de `package.json` apuntan a él.
+
+### Cambiado
+- La demo importa `@zeluizr/palta@1` en lugar de `@latest`.
+- El README corrige la versión de Node que pide vitest 4.
 
 ## [1.3.1] - 2026-09-15
 
