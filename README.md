@@ -68,7 +68,8 @@ measurements.length.convert(1, 'm', 'cm')  // 100
 ```
 
 Pensado para VTEX IO, que entrega dimensiones en `cm` y peso en `g`: `format()` escala solo
-para mostrar y nunca altera el valor original.
+para mostrar y nunca altera el valor original. Para México, Puerto Rico o República Dominicana,
+`{ decimalSeparator: '.' }` cambia a `1,500.00 m`.
 
 ```ts
 import { detect } from '@zeluizr/palta'
@@ -82,12 +83,79 @@ detect('111.444.777-35')
 CURP, RIF, CI) y devuelve `null` cuando no reconoce el valor. No es exhaustiva entre los 23
 países.
 
+Sin bundler (HTML puro, temas de Shopify), el build `palta.global.js` expone `window.palta`.
+Fijá la versión en la URL para que una versión mayor no rompa la página:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@zeluizr/palta@1/dist/palta.global.js"></script>
+<script>
+  palta.br.cpf.validate('111.444.777-35')  // true
+</script>
+```
+
 Para reducir el bundle, cada país se puede importar por subpath:
 
 ```ts
 import { cpf, currency } from '@zeluizr/palta/br'
 import { length } from '@zeluizr/palta/measurements'
 ```
+
+## Shopify
+
+`@zeluizr/palta/shopify` traduce lo que entrega Shopify a los módulos de cada país: códigos ISO
+de país y moneda, precios en unidad mínima y unidades de peso de la Admin API.
+
+En un tema (Liquid), con el build global. Shopify entrega los precios multiplicados por 100,
+incluso en monedas sin centavos (CLP $10.990 llega como `1099000`), y `formatCents` lo
+contempla:
+
+```liquid
+<span data-price>{{ product.price }}</span>
+<input data-tax-id placeholder="CPF">
+
+<script src="https://cdn.jsdelivr.net/npm/@zeluizr/palta@1/dist/palta.global.js"></script>
+<script>
+  const currencyCode = {{ cart.currency.iso_code | json }}
+  const country = palta.shopify.byCountry({{ localization.country.iso_code | json }})
+
+  document.querySelectorAll('[data-price]').forEach((el) => {
+    el.textContent = palta.shopify.formatCents(Number(el.textContent), currencyCode)
+  })
+
+  // En tiendas de Brasil valida el CPF; en otros países `country.cpf` no existe
+  const input = document.querySelector('[data-tax-id]')
+  input.addEventListener('blur', () => {
+    input.setCustomValidity(country?.cpf?.validate(input.value) === false ? 'CPF inválido' : '')
+  })
+</script>
+```
+
+En Hydrogen o con la Storefront API, `MoneyV2` llega con `amount` como string:
+
+```ts
+import { formatMoney, formatWeight } from '@zeluizr/palta/shopify'
+
+formatMoney({ amount: '1234.5', currencyCode: 'BRL' })                  // 'R$ 1.234,50'
+formatMoney({ amount: '1234.5', currencyCode: 'USD' }, { country: 'PR' }) // '$ 1,234.50'
+formatWeight({ value: 0.5, unit: 'KILOGRAMS' })                          // '500 g'
+```
+
+| función | qué hace |
+|---|---|
+| `byCountry(iso)` | namespace del país por ISO 3166-1 (`'BR'` → `br`, `'DO'` → `do_`); `undefined` fuera de LatAm |
+| `byCurrency(code, country?)` | `CurrencyModule` por ISO 4217; `country` elige el formato de USD (Ecuador por defecto) |
+| `fromCents(cents)` | unidad mínima de Shopify a unidad de moneda (siempre ÷100) |
+| `formatCents(cents, currencyCode, options?)` | precio de Liquid o `/cart.js` formateado |
+| `formatMoney(money, options?)` | `MoneyV2` formateado; `options` acepta `decimals`, `symbol` y `country` |
+| `weightUnit(unit)` | `g`/`kg`/`lb`/`oz` y `GRAMS`/`KILOGRAMS`/`OUNCES`/`POUNDS` → `WeightUnit` |
+| `formatWeight({ value, unit }, options?)` | peso de la Admin API con auto-escala g ↔ kg |
+
+En Liquid, `variant.weight` siempre está en gramos: `measurements.weight.format(weight, 'g')`
+alcanza. Shopify no tiene dimensiones nativas (se guardan en metafields), así que
+`measurements.length` se usa con la unidad que haya elegido la tienda.
+
+`shopify` importa los 23 países, porque no sabe de antemano cuál va a pedir la tienda. Si la
+tienda vende en un solo país, importá ese subpath (`@zeluizr/palta/br`) y `fromCents`.
 
 ## Referencia
 
@@ -149,6 +217,7 @@ de JavaScript. El subpath sigue siendo `@zeluizr/palta/do`.
 | `measurements.length` | `./measurements` | `mm` `cm` `m` `km` `in` `ft` |
 | `measurements.weight` | `./measurements` | `mg` `g` `kg` `oz` `lb` |
 | `measurements.volume` | `./measurements` | `ml` `l` `fl oz` |
+| `shopify` | `./shopify` | adaptador para Liquid, `/cart.js`, Storefront y Admin API |
 
 ## Requisitos
 
@@ -156,7 +225,7 @@ de JavaScript. El subpath sigue siendo `@zeluizr/palta/do`.
 - ESM y CJS, con tipos incluidos
 - Sin dependencias en runtime
 
-El toolchain de desarrollo pide más: vitest exige Node `>= 18` y la CI corre en Node 22. Esa
+El toolchain de desarrollo pide más: vitest 4 exige Node `^20 || ^22 || >=24` y la CI corre en Node 22. Esa
 diferencia importa en VTEX IO — el paquete instala y corre en Node 16 igual, porque la salida
 compilada no usa ninguna API exclusiva de versiones nuevas.
 
@@ -172,6 +241,7 @@ compilada no usa ninguna API exclusiva de versiones nuevas.
 │   │   ├── phone.ts
 │   │   └── zipcode.ts
 │   ├── measurements/     # length, weight, volume
+│   ├── shopify/          # adaptador para Shopify
 │   ├── detect.ts
 │   ├── types.ts          # contratos compartidos
 │   └── utils.ts
@@ -191,7 +261,7 @@ npm install
 npm test              # vitest
 npm run test:coverage # cobertura, umbral 94%
 npm run lint          # tsc --noEmit, única puerta estática
-npm run build         # tsup: ESM + CJS + .d.ts
+npm run build         # tsup: ESM + CJS + .d.ts + IIFE (palta.global.js)
 ```
 
 Los tests importan directo de `src/`, así que corren sin haber hecho `build`. La CI
