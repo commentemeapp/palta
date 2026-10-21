@@ -7,6 +7,17 @@ y este proyecto sigue el [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [No publicado]
 
+### Corregido
+- `measurements.format` decide la auto-escala con el valor ya redondeado: `weight.format(999.999, 'g')`
+  devuelve `'1,00 kg'` y no `'1000,00 g'`.
+- `measurements.format` auto-escala también los negativos: `weight.format(-2000, 'g')` devuelve
+  `'-2,00 kg'`.
+- `measurements.format` agrupa los miles: `length.format(150000, 'cm')` devuelve `'1.500,00 m'`.
+
+### Añadido
+- `measurements.format` acepta `decimalSeparator: ',' | '.'` (por defecto `','`). Con `'.'` los
+  miles se separan con `','`, como en México, Puerto Rico o República Dominicana.
+
 ## [1.3.1] - 2026-09-15
 
 ### Cambiado
