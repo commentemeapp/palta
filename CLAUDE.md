@@ -15,7 +15,7 @@ Guide for AI assistants working on this codebase.
 ```bash
 npm test                # run all tests (vitest)
 npm run test:coverage   # run tests + coverage (per-metric thresholds)
-npm run build           # build with tsup (ESM + CJS + .d.ts)
+npm run build           # build with tsup (ESM + CJS + .d.ts + minified IIFE `dist/palta.global.js`)
 npm run lint            # tsc --noEmit (type checking only)
 ```
 
@@ -81,11 +81,12 @@ Both are in `src/utils.ts`.
 - `currency.format` returns `''` for any non-finite value (`NaN`, `Infinity`, `null`, `undefined`) in all 23 countries — same policy as `measurements.format`
 - `mx.currency` exposes both `parse` (contract) and `strip` (extra); `ni.phone` exposes `countryCode`, keeping `code` as a deprecated alias
 - `tests/types.test.ts` asserts the `src/types.ts` contracts across all 23 countries — keep it green when adding a country
+- **`shopify`** (`src/shopify/index.ts`) is a global adapter, not a country: it maps Shopify's ISO country/currency codes to the country modules, converts Shopify minor units (`fromCents`, always ÷100 — Shopify multiplies even zero-decimal currencies like CLP by 100) and Shopify weight units. It imports every country, so it is excluded from the country list in `tests/types.test.ts`
 - **`measurements`** is a global module (not per-country). VTEX IO always sends dimensions in `cm` and weight in `g` — `format()` auto-scales for display. Available via `import { measurements } from '@zeluizr/palta'` or `import { length } from '@zeluizr/palta/measurements'`
 
 ## CI/CD
 
-- `.github/workflows/ci.yml` — runs lint + `test:coverage` + build on every push/PR, using Node 22
+- `.github/workflows/ci.yml` — runs lint + `test:coverage` + build + a smoke test of `dist/palta.global.js` on every push/PR, using Node 22
 - No automated publish — releases are published manually via `npm publish --access public`
 - Coverage thresholds in `vitest.config.ts`: lines 94, statements 94, functions 98, branches 90
 

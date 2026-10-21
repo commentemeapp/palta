@@ -1,4 +1,5 @@
 import type { WeightUnit } from '../types.js'
+import { formatMeasure, type MeasurementFormatOptions } from './scale.js'
 
 const factors: Record<WeightUnit, number> = {
   mg: 1,
@@ -20,17 +21,7 @@ export function convert(value: number, from: WeightUnit, to: WeightUnit): number
 export function format(
   value: number,
   unit: WeightUnit,
-  options?: { decimals?: number },
+  options?: MeasurementFormatOptions,
 ): string {
-  if (typeof value !== 'number' || !isFinite(value)) return ''
-  const d = options?.decimals ?? 2
-  const scale = autoScale[unit]
-  if (scale && value >= scale[0]) {
-    const scaled = convert(value, unit, scale[1])
-    return `${scaled.toFixed(d).replace('.', ',')} ${scale[1]}`
-  }
-  if (options?.decimals === undefined && Number.isInteger(value)) {
-    return `${value} ${unit}`
-  }
-  return `${value.toFixed(d).replace('.', ',')} ${unit}`
+  return formatMeasure(value, unit, factors, autoScale, options)
 }
