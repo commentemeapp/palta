@@ -28,6 +28,7 @@ export default defineConfig([
       'src/jm/index.ts',
       'src/tt/index.ts',
       'src/measurements/index.ts',
+      'src/shopify/index.ts',
     ],
     format: ['esm', 'cjs'],
     dts: true,

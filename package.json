@@ -19,7 +19,9 @@
     "latam",
     "currency",
     "phone",
-    "zipcode"
+    "zipcode",
+    "shopify",
+    "vtex"
   ],
   "author": "zeluizr",
   "contributors": [
@@ -172,6 +174,11 @@
       "types": "./dist/measurements/index.d.ts",
       "import": "./dist/measurements/index.js",
       "require": "./dist/measurements/index.cjs"
+    },
+    "./shopify": {
+      "types": "./dist/shopify/index.d.ts",
+      "import": "./dist/shopify/index.js",
+      "require": "./dist/shopify/index.cjs"
     }
   },
   "files": [
