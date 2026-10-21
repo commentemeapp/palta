@@ -31,6 +31,7 @@ y este proyecto sigue el [Versionado Semántico](https://semver.org/lang/es/).
 ### Cambiado
 - La demo importa `@zeluizr/palta@1` en lugar de `@latest`.
 - El README corrige la versión de Node que pide vitest 4.
+- El README suma una sección Shopify con ejemplos en Liquid y Hydrogen.
 
 ## [1.3.1] - 2026-09-15
 

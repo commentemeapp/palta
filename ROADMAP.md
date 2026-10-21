@@ -43,6 +43,15 @@ measurements.volume.format(1500, 'ml')        // '1,50 l'
 
 ---
 
+## ✅ No publicado — Adaptador Shopify
+
+`@zeluizr/palta/shopify` conecta los datos de Shopify con los módulos de cada país:
+`byCountry`, `byCurrency`, `fromCents`, `formatMoney`, `formatCents`, `weightUnit` y
+`formatWeight`. El build `dist/palta.global.js` permite usarlo en temas Liquid sin bundler.
+Detalle en el [README](./README.md#shopify).
+
+---
+
 ## Países disponibles
 
 ### América del Sur
