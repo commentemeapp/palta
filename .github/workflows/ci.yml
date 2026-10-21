@@ -33,6 +33,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Smoke test global bundle
+        run: node -e "const vm=require('vm');const c={};vm.createContext(c);vm.runInContext(require('fs').readFileSync('dist/palta.global.js','utf8'),c);if(!c.palta.br.cpf.validate('111.444.777-35'))process.exit(1)"
+
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:

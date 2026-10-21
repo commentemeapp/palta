@@ -5,7 +5,7 @@ type Module = Record<string, unknown>
 type Country = Record<string, Module>
 
 const countries = Object.entries(palta as unknown as Record<string, unknown>)
-  .filter(([name]) => name !== 'detect' && name !== 'measurements')
+  .filter(([name]) => !['detect', 'measurements', 'shopify'].includes(name))
   .map(([name, country]) => [name, country as Country] as [string, Country])
 
 const noFinitos = [NaN, Infinity, -Infinity, null, undefined]

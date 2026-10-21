@@ -7,6 +7,32 @@ y este proyecto sigue el [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [No publicado]
 
+### Corregido
+- `measurements.format` decide la auto-escala con el valor ya redondeado: `weight.format(999.999, 'g')`
+  devuelve `'1,00 kg'` y no `'1000,00 g'`.
+- `measurements.format` auto-escala también los negativos: `weight.format(-2000, 'g')` devuelve
+  `'-2,00 kg'`.
+- `measurements.format` agrupa los miles: `length.format(150000, 'cm')` devuelve `'1.500,00 m'`.
+
+### Añadido
+- `measurements.format` acepta `decimalSeparator: ',' | '.'` (por defecto `','`). Con `'.'` los
+  miles se separan con `','`, como en México, Puerto Rico o República Dominicana.
+- Build IIFE minificado `dist/palta.global.js` (~12 KB gzip) que expone `window.palta`, para usar
+  con `<script>` sin bundler. Los campos `unpkg` y `jsdelivr` de `package.json` apuntan a él.
+- Módulo `shopify` (`@zeluizr/palta/shopify`, y `shopify` en el import raíz y en `window.palta`):
+  - `byCountry(iso)` — namespace del país por ISO 3166-1 (`'DO'` resuelve a `do_`).
+  - `byCurrency(code, country?)` — `CurrencyModule` por ISO 4217; `country` desempata USD.
+  - `fromCents(cents)` — unidad mínima de Liquid y `/cart.js` a unidad de moneda (÷100 también
+    en CLP, PYG y COP, como hace Shopify).
+  - `formatMoney(MoneyV2, options)` y `formatCents(cents, currencyCode, options)`.
+  - `weightUnit(unit)` y `formatWeight({ value, unit })` — unidades REST (`g`, `kg`, `lb`, `oz`)
+    y del enum GraphQL (`GRAMS`, `KILOGRAMS`, `OUNCES`, `POUNDS`).
+
+### Cambiado
+- La demo importa `@zeluizr/palta@1` en lugar de `@latest`.
+- El README corrige la versión de Node que pide vitest 4.
+- El README suma una sección Shopify con ejemplos en Liquid y Hydrogen.
+
 ## [1.3.1] - 2026-09-15
 
 ### Cambiado

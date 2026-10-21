@@ -31,7 +31,7 @@ export type VolumeUnit = 'ml' | 'l' | 'fl oz'
 
 export interface MeasurementModule<U extends string> {
   convert(value: number, from: U, to: U): number
-  format(value: number, unit: U, options?: { decimals?: number }): string
+  format(value: number, unit: U, options?: { decimals?: number; decimalSeparator?: ',' | '.' }): string
 }
 
 export interface DetectResult {
