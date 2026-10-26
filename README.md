@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="assets/banner.png" width="100%" alt="@zeluizr/palta · Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.">
-</p>
+![@zeluizr/palta · Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.](https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png)
 
 # @zeluizr/palta
 
