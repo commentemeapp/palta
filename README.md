@@ -1,22 +1,14 @@
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/zeluizr/palta/main/.github/assets/readme-header-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png">
-  <img alt="palta — Formateo y validación de datos de América Latina: CPF, CNPJ, RUT, CUIT, NIT, RUC, monedas, teléfonos y códigos postales. 23 países, TypeScript, cero dependencias, ESM + CJS, Node >=16, MIT." src="https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png" width="100%">
-</picture>
+<p align="center">
+  <img src="assets/banner.png" width="100%" alt="@zeluizr/palta · Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.">
+</p>
 
-# palta
+# @zeluizr/palta
 
-**Formateo y validación de datos de América Latina — CPF, CNPJ, RUT, CUIT, NIT, RUC, monedas, teléfonos y códigos postales. Cero dependencias.**
+**Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.**
 
-Librería TypeScript para 23 países de América Latina. Formatea, valida, limpia y enmascara
-documentos de identidad y tributarios; formatea y parsea monedas, teléfonos y códigos postales;
-y convierte medidas con auto-escala. Sin dependencias en runtime, ESM y CJS, tipos incluidos.
-
-[![npm](https://badgen.net/npm/v/@zeluizr/palta?color=7AB317)](https://www.npmjs.com/package/@zeluizr/palta)
-[![node](https://badgen.net/npm/node/@zeluizr/palta)](https://nodejs.org)
-[![licencia](https://badgen.net/npm/license/@zeluizr/palta?label=licencia)](./LICENSE)
-
----
+[![npm](https://img.shields.io/npm/v/@zeluizr/palta?labelColor=005278&color=FFBD38)](https://www.npmjs.com/package/@zeluizr/palta)
+[![node](https://img.shields.io/node/v/@zeluizr/palta?labelColor=005278&color=FFBD38)](https://nodejs.org)
+[![licencia](https://img.shields.io/npm/l/@zeluizr/palta?label=licencia&labelColor=005278&color=FFBD38)](./LICENSE)
 
 ## Instalación
 
@@ -24,7 +16,7 @@ y convierte medidas con auto-escala. Sin dependencias en runtime, ESM y CJS, tip
 npm i @zeluizr/palta
 ```
 
-## Uso
+## Uso rápido
 
 Cada país es un namespace de dos letras. Dentro de cada uno, los módulos siempre tienen la
 misma forma: `format`, `validate`, `strip`, `mask` para documentos; `format`, `parse`,
@@ -42,6 +34,21 @@ br.cpf.mask                         // '###.###.###-##'
 cl.rut.format('123456785')          // '12.345.678-5'
 ar.cuit.validate('20123456786')     // true
 ```
+
+## Que incluye
+
+- **23 países de América Latina**: documentos de identidad y tributarios (CPF, CNPJ, RUT, CUIT, NIT, RUC y mas) con `format`, `validate`, `strip` y `mask`.
+- **Monedas, teléfonos y códigos postales** de cada país, con el formato local.
+- **Medidas con auto-escala**: largo, peso y volumen (`150 cm` → `1,50 m`).
+- **`detect()`**: identifica país y tipo de un documento.
+- **Adaptador para Shopify**: precios en unidad mínima, `MoneyV2` y pesos de la Admin API.
+- **Cero dependencias en runtime**, ESM y CJS, tipos incluidos y un build global para usar sin bundler.
+
+## Documentación
+
+La wiki está en [github.com/zeluizr/palta/wiki](https://github.com/zeluizr/palta/wiki).
+
+### Uso
 
 ```ts
 // Moneda — formato local, con o sin símbolo
@@ -84,7 +91,7 @@ CURP, RIF, CI) y devuelve `null` cuando no reconoce el valor. No es exhaustiva e
 países.
 
 Sin bundler (HTML puro, temas de Shopify), el build `palta.global.js` expone `window.palta`.
-Fijá la versión en la URL para que una versión mayor no rompa la página:
+Fija la versión en la URL para que una versión mayor no rompa la página:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@zeluizr/palta@1/dist/palta.global.js"></script>
@@ -100,7 +107,7 @@ import { cpf, currency } from '@zeluizr/palta/br'
 import { length } from '@zeluizr/palta/measurements'
 ```
 
-## Shopify
+### Shopify
 
 `@zeluizr/palta/shopify` traduce lo que entrega Shopify a los módulos de cada país: códigos ISO
 de país y moneda, precios en unidad mínima y unidades de peso de la Admin API.
@@ -140,7 +147,7 @@ formatMoney({ amount: '1234.5', currencyCode: 'USD' }, { country: 'PR' }) // '$ 
 formatWeight({ value: 0.5, unit: 'KILOGRAMS' })                          // '500 g'
 ```
 
-| función | qué hace |
+| función | que hace |
 |---|---|
 | `byCountry(iso)` | namespace del país por ISO 3166-1 (`'BR'` → `br`, `'DO'` → `do_`); `undefined` fuera de LatAm |
 | `byCurrency(code, country?)` | `CurrencyModule` por ISO 4217; `country` elige el formato de USD (Ecuador por defecto) |
@@ -155,9 +162,9 @@ alcanza. Shopify no tiene dimensiones nativas (se guardan en metafields), así q
 `measurements.length` se usa con la unidad que haya elegido la tienda.
 
 `shopify` importa los 23 países, porque no sabe de antemano cuál va a pedir la tienda. Si la
-tienda vende en un solo país, importá ese subpath (`@zeluizr/palta/br`) y `fromCents`.
+tienda vende en un solo país, importa ese subpath (`@zeluizr/palta/br`) y `fromCents`.
 
-## Referencia
+### Referencia
 
 Versión del código: **1.3.1**, según [package.json](package.json). El inventario de
 países está en [src/index.ts](src/index.ts); los contratos de los módulos están en
@@ -211,7 +218,7 @@ de JavaScript. El subpath sigue siendo `@zeluizr/palta/do`.
 
 </details>
 
-| export global | subpath | qué hace |
+| export global | subpath | que hace |
 |---|---|---|
 | `detect` | `.` | identifica país y tipo de un documento; `null` si no lo reconoce |
 | `measurements.length` | `./measurements` | `mm` `cm` `m` `km` `in` `ft` |
@@ -219,17 +226,17 @@ de JavaScript. El subpath sigue siendo `@zeluizr/palta/do`.
 | `measurements.volume` | `./measurements` | `ml` `l` `fl oz` |
 | `shopify` | `./shopify` | adaptador para Liquid, `/cart.js`, Storefront y Admin API |
 
-## Requisitos
+### Requisitos
 
 - Node `>= 16` en runtime
 - ESM y CJS, con tipos incluidos
 - Sin dependencias en runtime
 
-El toolchain de desarrollo pide más: vitest 4 exige Node `^20 || ^22 || >=24` y la CI corre en Node 22. Esa
+El toolchain de desarrollo pide mas: vitest 4 exige Node `^20 || ^22 || >=24` y la CI corre en Node 22. Esa
 diferencia importa en VTEX IO — el paquete instala y corre en Node 16 igual, porque la salida
 compilada no usa ninguna API exclusiva de versiones nuevas.
 
-## Estructura
+### Estructura
 
 ```
 .
@@ -251,7 +258,7 @@ compilada no usa ninguna API exclusiva de versiones nuevas.
 └── vitest.config.ts
 ```
 
-## Desarrollo
+### Desarrollo
 
 ```bash
 git clone https://github.com/zeluizr/palta.git
@@ -278,17 +285,11 @@ Para agregar un país nuevo hay que tocar cinco lugares, en este orden:
 Publicar es manual: `npm run publish:npm` para npm, `npm run publish:all` para npm y GitHub
 Packages. `prepublishOnly` corre lint, tests y build antes de subir nada.
 
-## Contribuir
+## Contribuir · Licencia
 
-Reglas que no se negocian: cero dependencias en runtime, TypeScript estricto sin `any`,
-funciones puras y defensivas — `format('')`, `validate(null)` y `strip(undefined)` nunca
-pueden lanzar. La cobertura no puede bajar de 94%.
+Cero dependencias en runtime, TypeScript estricto sin `any`, funciones puras que nunca lanzan y cobertura de 94% o mas; Conventional Commits y un issue antes de cualquier cambio grande ([CONTRIBUTING.md](.github/CONTRIBUTING.md)).
+[MIT](./LICENSE).
 
-Conventional Commits; el mensaje describe el efecto, no el cambio. Abrir un issue antes de
-cualquier cambio que no sea una corrección pequeña.
+---
 
-## Licencia
-
-[MIT](./LICENSE)
-
-_Hecho con amor y café por [zeluizr](https://github.com/zeluizr) y con la ayuda de [Claude](https://claude.ai/referral/Cz_UimA0NQ) ☕_
+Hecho por [commente.me](https://commente.me) · hola@commente.me
