@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: 💬 Preguntas y discusiones
-    url: https://github.com/zeluizr/palta/discussions
+    url: https://github.com/commentemeapp/palta/discussions
     about: Para preguntas generales usa las discusiones
   - name: 📦 npmjs.com
-    url: https://www.npmjs.com/package/@zeluizr/palta
+    url: https://www.npmjs.com/package/@commenteme/palta
     about: Ver el paquete en npm
   - name: 📖 Wiki
-    url: https://github.com/zeluizr/palta/wiki
+    url: https://github.com/commentemeapp/palta/wiki
     about: Guía de uso, referencia de API y cómo contribuir
