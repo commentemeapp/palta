@@ -25,7 +25,7 @@ assignees: ''
 
 ```ts
 // Cómo debería usarse la nueva funcionalidad
-import { uy } from '@zeluizr/palta'
+import { uy } from '@commenteme/palta'
 
 uy.rut.format('...')   // '...'
 uy.rut.validate('...') // true
