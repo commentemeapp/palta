@@ -26,7 +26,7 @@ assignees: ''
 
 ```ts
 // Código que reproduce el bug
-import { br } from '@zeluizr/palta'
+import { br } from '@commenteme/palta'
 
 br.cpf.format('...')  // resultado actual
 // resultado esperado: '...'
@@ -42,6 +42,6 @@ br.cpf.format('...')  // resultado actual
 
 ## Versión
 
-- `@zeluizr/palta`: <!-- ej: 1.0.5 -->
+- `@commenteme/palta`: <!-- ej: 1.0.5 -->
 - Node.js: <!-- ej: 20.x -->
 - Entorno: <!-- Node / Browser / Edge -->

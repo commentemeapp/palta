@@ -14,7 +14,7 @@
 ## Setup local
 
 ```bash
-git clone https://github.com/zeluizr/palta.git
+git clone https://github.com/commentemeapp/palta.git
 cd palta
 npm install
 npm test

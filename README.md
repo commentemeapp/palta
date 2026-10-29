@@ -1,17 +1,17 @@
-![@zeluizr/palta · Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.](https://raw.githubusercontent.com/zeluizr/palta/main/assets/banner.png)
+![@commenteme/palta · Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.](https://raw.githubusercontent.com/commentemeapp/palta/main/assets/banner.png)
 
-# @zeluizr/palta
+# @commenteme/palta
 
 **Formateo y validación de datos de América Latina: RUT, CPF, CUIT, monedas y teléfonos.**
 
-[![npm](https://img.shields.io/npm/v/@zeluizr/palta?labelColor=005278&color=FFBD38)](https://www.npmjs.com/package/@zeluizr/palta)
-[![node](https://img.shields.io/node/v/@zeluizr/palta?labelColor=005278&color=FFBD38)](https://nodejs.org)
-[![licencia](https://img.shields.io/npm/l/@zeluizr/palta?label=licencia&labelColor=005278&color=FFBD38)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@commenteme/palta?labelColor=005278&color=FFBD38)](https://www.npmjs.com/package/@commenteme/palta)
+[![node](https://img.shields.io/node/v/@commenteme/palta?labelColor=005278&color=FFBD38)](https://nodejs.org)
+[![licencia](https://img.shields.io/npm/l/@commenteme/palta?label=licencia&labelColor=005278&color=FFBD38)](./LICENSE)
 
 ## Instalación
 
 ```bash
-npm i @zeluizr/palta
+npm i @commenteme/palta
 ```
 
 ## Uso rápido
@@ -21,7 +21,7 @@ misma forma: `format`, `validate`, `strip`, `mask` para documentos; `format`, `p
 `symbol`, `code` para moneda.
 
 ```ts
-import { br, cl, ar } from '@zeluizr/palta'
+import { br, cl, ar } from '@commenteme/palta'
 
 // Documentos
 br.cpf.format('11144477735')        // '111.444.777-35'
@@ -44,7 +44,7 @@ ar.cuit.validate('20123456786')     // true
 
 ## Documentación
 
-La wiki está en [github.com/zeluizr/palta/wiki](https://github.com/zeluizr/palta/wiki).
+La wiki está en [github.com/commentemeapp/palta/wiki](https://github.com/commentemeapp/palta/wiki).
 
 ### Uso
 
@@ -64,7 +64,7 @@ br.zipcode.format('01310100')       // '01310-100'
 ```
 
 ```ts
-import { measurements } from '@zeluizr/palta'
+import { measurements } from '@commenteme/palta'
 
 // Medidas — auto-escala (cm >= 100 -> m, g >= 1000 -> kg, ml >= 1000 -> l)
 measurements.length.format(150, 'cm')   // '1,50 m'
@@ -77,7 +77,7 @@ para mostrar y nunca altera el valor original. Para México, Puerto Rico o Repú
 `{ decimalSeparator: '.' }` cambia a `1,500.00 m`.
 
 ```ts
-import { detect } from '@zeluizr/palta'
+import { detect } from '@commenteme/palta'
 
 // Detección — identifica país y tipo a partir del valor
 detect('111.444.777-35')
@@ -92,7 +92,7 @@ Sin bundler (HTML puro, temas de Shopify), el build `palta.global.js` expone `wi
 Fija la versión en la URL para que una versión mayor no rompa la página:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@zeluizr/palta@1/dist/palta.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@commenteme/palta@1/dist/palta.global.js"></script>
 <script>
   palta.br.cpf.validate('111.444.777-35')  // true
 </script>
@@ -101,13 +101,13 @@ Fija la versión en la URL para que una versión mayor no rompa la página:
 Para reducir el bundle, cada país se puede importar por subpath:
 
 ```ts
-import { cpf, currency } from '@zeluizr/palta/br'
-import { length } from '@zeluizr/palta/measurements'
+import { cpf, currency } from '@commenteme/palta/br'
+import { length } from '@commenteme/palta/measurements'
 ```
 
 ### Shopify
 
-`@zeluizr/palta/shopify` traduce lo que entrega Shopify a los módulos de cada país: códigos ISO
+`@commenteme/palta/shopify` traduce lo que entrega Shopify a los módulos de cada país: códigos ISO
 de país y moneda, precios en unidad mínima y unidades de peso de la Admin API.
 
 En un tema (Liquid), con el build global. Shopify entrega los precios multiplicados por 100,
@@ -118,7 +118,7 @@ contempla:
 <span data-price>{{ product.price }}</span>
 <input data-tax-id placeholder="CPF">
 
-<script src="https://cdn.jsdelivr.net/npm/@zeluizr/palta@1/dist/palta.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@commenteme/palta@1/dist/palta.global.js"></script>
 <script>
   const currencyCode = {{ cart.currency.iso_code | json }}
   const country = palta.shopify.byCountry({{ localization.country.iso_code | json }})
@@ -138,7 +138,7 @@ contempla:
 En Hydrogen o con la Storefront API, `MoneyV2` llega con `amount` como string:
 
 ```ts
-import { formatMoney, formatWeight } from '@zeluizr/palta/shopify'
+import { formatMoney, formatWeight } from '@commenteme/palta/shopify'
 
 formatMoney({ amount: '1234.5', currencyCode: 'BRL' })                  // 'R$ 1.234,50'
 formatMoney({ amount: '1234.5', currencyCode: 'USD' }, { country: 'PR' }) // '$ 1,234.50'
@@ -160,7 +160,7 @@ alcanza. Shopify no tiene dimensiones nativas (se guardan en metafields), así q
 `measurements.length` se usa con la unidad que haya elegido la tienda.
 
 `shopify` importa los 23 países, porque no sabe de antemano cuál va a pedir la tienda. Si la
-tienda vende en un solo país, importa ese subpath (`@zeluizr/palta/br`) y `fromCents`.
+tienda vende en un solo país, importa ese subpath (`@commenteme/palta/br`) y `fromCents`.
 
 ### Referencia
 
@@ -212,7 +212,7 @@ contratos están en `src/types.ts` y son idénticos en todos los países.
 | `./ve` | Venezuela | `ci` `rif` |
 
 En el import raíz, República Dominicana se expone como `do_` porque `do` es palabra reservada
-de JavaScript. El subpath sigue siendo `@zeluizr/palta/do`.
+de JavaScript. El subpath sigue siendo `@commenteme/palta/do`.
 
 </details>
 
@@ -259,7 +259,7 @@ compilada no usa ninguna API exclusiva de versiones nuevas.
 ### Desarrollo
 
 ```bash
-git clone https://github.com/zeluizr/palta.git
+git clone https://github.com/commentemeapp/palta.git
 cd palta
 npm install
 
@@ -280,8 +280,8 @@ Para agregar un país nuevo hay que tocar cinco lugares, en este orden:
 4. entrada en `exports` de `package.json`
 5. tests en `tests/xx/` con cobertura mínima de 94%
 
-Publicar es manual: `npm run publish:npm` para npm, `npm run publish:all` para npm y GitHub
-Packages. `prepublishOnly` corre lint, tests y build antes de subir nada.
+Publicar es manual: `npm run publish:npm`. `prepublishOnly` corre lint, tests y build antes
+de subir nada.
 
 ## Contribuir · Licencia
 
