@@ -4,11 +4,11 @@ Guide for AI assistants working on this codebase.
 
 ## Project
 
-`@zeluizr/palta` — TypeScript library for formatting and validating Latin American data (tax IDs, currencies, phones, zip codes, measurements). Zero runtime dependencies.
+`@commenteme/palta` — TypeScript library for formatting and validating Latin American data (tax IDs, currencies, phones, zip codes, measurements). Zero runtime dependencies.
 
-- npm: `@zeluizr/palta`
-- Repo: https://github.com/zeluizr/palta
-- Wiki: https://github.com/zeluizr/palta/wiki
+- npm: `@commenteme/palta`
+- Repo: https://github.com/commentemeapp/palta
+- Wiki: https://github.com/commentemeapp/palta/wiki
 
 ## Commands
 
@@ -82,7 +82,7 @@ Both are in `src/utils.ts`.
 - `mx.currency` exposes both `parse` (contract) and `strip` (extra); `ni.phone` exposes `countryCode`, keeping `code` as a deprecated alias
 - `tests/types.test.ts` asserts the `src/types.ts` contracts across all 23 countries — keep it green when adding a country
 - **`shopify`** (`src/shopify/index.ts`) is a global adapter, not a country: it maps Shopify's ISO country/currency codes to the country modules, converts Shopify minor units (`fromCents`, always ÷100 — Shopify multiplies even zero-decimal currencies like CLP by 100) and Shopify weight units. It imports every country, so it is excluded from the country list in `tests/types.test.ts`
-- **`measurements`** is a global module (not per-country). VTEX IO always sends dimensions in `cm` and weight in `g` — `format()` auto-scales for display. Available via `import { measurements } from '@zeluizr/palta'` or `import { length } from '@zeluizr/palta/measurements'`
+- **`measurements`** is a global module (not per-country). VTEX IO always sends dimensions in `cm` and weight in `g` — `format()` auto-scales for display. Available via `import { measurements } from '@commenteme/palta'` or `import { length } from '@commenteme/palta/measurements'`
 
 ## CI/CD
 

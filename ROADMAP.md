@@ -2,7 +2,7 @@
 
 ## ¡Misión cumplida! — Cobertura regional completa
 
-**Todos los países de América Latina ya están disponibles en `@zeluizr/palta`.**
+**Todos los países de América Latina ya están disponibles en `@commenteme/palta`.**
 
 Si encontrás un bug, querés mejorar la validación de un documento existente, o querés agregar un módulo nuevo a un país que ya está, tu contribución es **muy bienvenida**.
 
@@ -15,9 +15,9 @@ Si encontrás un bug, querés mejorar la validación de un documento existente, 
 Módulo global (no por país) para convertir y formatear unidades de medida. Diseñado para catálogos de productos y plataformas de e-commerce como VTEX IO (que siempre envía dimensiones en `cm` y peso en `g`) y Shopify.
 
 ```ts
-import { measurements } from '@zeluizr/palta'
+import { measurements } from '@commenteme/palta'
 // o
-import { length, weight, volume } from '@zeluizr/palta/measurements'
+import { length, weight, volume } from '@commenteme/palta/measurements'
 
 // Longitud — auto-escala cm ≥ 100 → m
 measurements.length.convert(10, 'cm', 'mm')  // 100
@@ -45,7 +45,7 @@ measurements.volume.format(1500, 'ml')        // '1,50 l'
 
 ## ✅ No publicado — Adaptador Shopify
 
-`@zeluizr/palta/shopify` conecta los datos de Shopify con los módulos de cada país:
+`@commenteme/palta/shopify` conecta los datos de Shopify con los módulos de cada país:
 `byCountry`, `byCurrency`, `fromCents`, `formatMoney`, `formatCents`, `weightUnit` y
 `formatWeight`. El build `dist/palta.global.js` permite usarlo en temas Liquid sin bundler.
 Detalle en el [README](./README.md#shopify).
@@ -142,4 +142,4 @@ Este proyecto está completo en términos de cobertura regional. A partir de aho
 
 ---
 
-[CONTRIBUTING.md](.github/CONTRIBUTING.md) · [README.md](./README.md) · [npm](https://www.npmjs.com/package/@zeluizr/palta)
+[CONTRIBUTING.md](.github/CONTRIBUTING.md) · [README.md](./README.md) · [npm](https://www.npmjs.com/package/@commenteme/palta)
