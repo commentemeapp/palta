@@ -164,7 +164,7 @@ tienda vende en un solo país, importa ese subpath (`@commenteme/palta/br`) y `f
 
 ### Referencia
 
-Versión del código: **1.3.1**, según [package.json](package.json). El inventario de
+Versión del código: **1.4.0**, según [package.json](package.json). El inventario de
 países está en [src/index.ts](src/index.ts); los contratos de los módulos están en
 [src/types.ts](src/types.ts) y los cambios de API en [CHANGELOG.md](CHANGELOG.md).
 
@@ -270,7 +270,7 @@ npm run build         # tsup: ESM + CJS + .d.ts + IIFE (palta.global.js)
 ```
 
 Los tests importan directo de `src/`, así que corren sin haber hecho `build`. La CI
-(`.github/workflows/ci.yml`) corre lint, cobertura y build en cada push y PR contra `main`.
+(`.github/workflows/ci.yml`) corre lint, cobertura y build en cada push a `dev` y `main` y en cada PR contra `main`.
 
 Para agregar un país nuevo hay que tocar cinco lugares, en este orden:
 
@@ -290,4 +290,4 @@ Cero dependencias en runtime, TypeScript estricto sin `any`, funciones puras que
 
 ---
 
-Hecho por [commente.me](https://commente.me) · hola@commente.me
+Hecho por [commente.me](https://www.commente.me) · hablecon@commente.me
